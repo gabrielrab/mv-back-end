@@ -4,9 +4,10 @@ import bcrypt from "bcryptjs";
 
 const UserSchema = mongoose.Schema(
   {
-    username: {
+    user: {
       type: String,
-      require: true
+      require: true,
+      unique: true
     },
     password: {
       type: String,
@@ -18,11 +19,13 @@ const UserSchema = mongoose.Schema(
     },
     email: {
       type: String,
-      require: true
+      require: true,
+      unique: true
     },
     cnpj: {
       type: String,
-      require: true
+      require: true,
+      unique: true
     },
     phone: {
       type: String,
@@ -33,6 +36,10 @@ const UserSchema = mongoose.Schema(
       require: true
     },
     city: {
+      type: String,
+      require: true
+    },
+    uf: {
       type: String,
       require: true
     },
@@ -66,4 +73,4 @@ UserSchema.methods = {
   }
 };
 
-mongoose.model("Tabela", UserSchema);
+mongoose.model("UserSchema", UserSchema);
