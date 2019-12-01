@@ -3,6 +3,15 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import requireDir from "require-dir";
 import routes from "./routes";
+import mongoose from "mongoose";
+require("dotenv").config();
+
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true
+});
 
 const app = express();
 
