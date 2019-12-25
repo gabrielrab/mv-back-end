@@ -24,13 +24,11 @@ module.exports = {
     try {
       const data = req.body;
       const user = await User.create({ ...data });
-
       //Adicionar job de cadastro de usuário
-
-      console.log(`[api] Create user: ${user.name}`);
+      console.log(`[api] - Create user: ${user.name}`);
       return res.send({ user });
     } catch (error) {
-      console.log("[api] Error on Created User: " + error);
+      console.log("[api]  - Error on Created User: " + error);
       return res.send({ error: "User dont created" });
     }
   },
@@ -40,7 +38,7 @@ module.exports = {
       const user = await User.findByIdAndUpdate(req.params.id, req.body, {
         new: true
       });
-      console.log(`[api] Update user: ${user.name}`);
+      console.log(`[api] - Update user: ${user.name}`);
       return res.status(200).send({ user });
     } catch (error) {
       console.log(error);
@@ -51,7 +49,7 @@ module.exports = {
   async destroy(req, res) {
     try {
       const user = await User.findByIdAndRemove(req.params.id);
-      console.log(`[api] Deleted user_id: ${req.params.id}`);
+      console.log(`[api] - Deleted user_id: ${req.params.id}`);
       return res.status(200).send("Delete success");
     } catch (error) {
       console.log(error);
@@ -64,7 +62,7 @@ module.exports = {
 
     try {
       if (!user) {
-        return res.status("404").send({ error: "User not found" });
+        return res.status(404).send({ error: "User not found" });
       }
       if (!(await user.compareHash(req.body.password))) {
         return res.status(401).send({ error: "Password incorrect" });
