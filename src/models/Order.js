@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const OrderShema = mongoose.Schema({
   code: {
@@ -48,4 +49,5 @@ const OrderShema = mongoose.Schema({
   }
 });
 
+OrderShema.plugin(AutoIncrement, { id: "code_seq", inc_field: "code" });
 mongoose.model("OrderShema", OrderShema);

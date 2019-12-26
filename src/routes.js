@@ -1,5 +1,4 @@
 import express from "express";
-import axios from "axios";
 
 const routes = express.Router();
 
@@ -17,6 +16,9 @@ routes.put("/user/:id", UserController.update);
 routes.delete("/user/:id", UserController.destroy);
 //Order
 routes.get("/order", OrderController.index);
+routes.get("/order/:id", OrderController.show);
 routes.post("/order", OrderController.store);
+routes.put("/order/:id", OrderController.update);
+routes.delete("/order/:id", OrderController.destroy);
 
 module.exports = routes;
