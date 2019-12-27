@@ -81,7 +81,7 @@ module.exports = {
     console.log("Entrou");
 
     //Adicionar job
-    await Queue.add({ user });
+    await Queue.add("RegistrationMail", { user });
     return res.send({ message: "parece que foi" });
   }
 };

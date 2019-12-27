@@ -22,4 +22,5 @@ routes.put("/order/:id", OrderController.update);
 routes.delete("/order/:id", OrderController.destroy);
 
 routes.post("/teste", UserController.teste);
+
 module.exports = routes;

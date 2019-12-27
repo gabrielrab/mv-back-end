@@ -3,9 +3,13 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import requireDir from "require-dir";
 import mongoose from "mongoose";
+import BullBoard from "bull-board";
+import Queue from "./lib/Queue";
+
 require("dotenv").config();
 
 const app = express();
+BullBoard.setQueues(Queue.queues.map(queue => queue.bull));
 
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
@@ -26,6 +30,7 @@ app.use((req, res, next) => {
 
 requireDir("./models");
 app.use("/", require("./routes"));
+app.use("/admin/filas", BullBoard.UI);
 
 app.listen(3333, () => {
   console.log("[api] - Api listening");
