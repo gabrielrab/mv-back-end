@@ -3,7 +3,6 @@ import Mail from "../lib/Mail";
 export default {
   key: "RegistrationMail",
   async handle({ data }) {
-    console.log("init job");
     const { user } = data;
     await Mail.sendMail({
       from: "teste@teste.com",

@@ -82,6 +82,9 @@ module.exports = {
 
     //Adicionar job
     await Queue.add("RegistrationMail", { user });
+
+    req.io.emit("Like", { user: "Gabriel Rabelo" });
+
     return res.send({ message: "parece que foi" });
   }
 };
