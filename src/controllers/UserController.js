@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 
+import Queue from "../lib/Queue";
+
 const User = mongoose.model("UserSchema");
 
 module.exports = {
@@ -11,7 +13,6 @@ module.exports = {
   async show(req, res) {
     try {
       const user = await User.findById(req.params.id);
-
       return res.status(200).send({ user });
     } catch (error) {
       console.log(error);
@@ -73,5 +74,14 @@ module.exports = {
       console.log(error);
       return res.status(400).json({ error: "User authenticate failed" });
     }
+  },
+
+  async teste(req, res) {
+    const user = req.body;
+    console.log("Entrou");
+
+    //Adicionar job
+    await Queue.add({ user });
+    return res.send({ message: "parece que foi" });
   }
 };
