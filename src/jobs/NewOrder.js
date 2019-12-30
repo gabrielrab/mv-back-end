@@ -5,14 +5,14 @@ import path from "path";
 edge.registerViews(path.resolve(__dirname, "..", "view"));
 
 export default {
-  key: "RegistrationMail",
+  key: "NewOrder",
   async handle({ data }) {
-    const { user } = data;
+    const { order } = data;
     await Mail.sendMail({
       from: process.env.MAIL_SENDER,
-      to: `${user.name} <${user.email}>`,
-      subject: "Bem vindo ao sistema de pedidos Master Vidros",
-      html: edge.render("register", { username: user.name })
+      to: process.env.MAIL_SENDER,
+      subject: "Novo Pedido",
+      html: edge.render("neworder", { order })
     });
   }
 };

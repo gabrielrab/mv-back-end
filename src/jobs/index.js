@@ -1,2 +1,3 @@
 import RegistrationMail from "./RegistrationMail";
-export { RegistrationMail };
+import NewOrder from "./NewOrder";
+export { RegistrationMail, NewOrder };

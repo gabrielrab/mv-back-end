@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import Queue from "../lib/Queue";
 
 const Order = mongoose.model("OrderShema");
 
@@ -31,7 +32,9 @@ module.exports = {
       const data = req.body;
       const order = await Order.create({ ...data });
       //Iniciar job
-      //Emit socket para o client
+      await Queue.add("NewOrder", { order });
+      //Socket da order
+      req.io.emit("Order", order);
       console.log(`[api] - Created order: ${order.id}`);
       return res.status(200).send({ order });
     } catch (error) {
@@ -47,7 +50,8 @@ module.exports = {
       let order = await Order.findById(id);
       order.status === 1
         ? ((order = await Order.findByIdAndUpdate(id, { ...data })),
-          //Emit de socket
+          //Socket da atualizacão da order
+          req.io.emit("Order", order),
           //Jobs de email para atualizaão
           console.log(`[api] - Updated order: ${order.id}`),
           res.status(200).send({ order }))
@@ -67,6 +71,8 @@ module.exports = {
     try {
       const { id } = req.params;
       const order = await Order.findByIdAndRemove(id);
+      //Socket para remover da lista de order
+      req.io.emit("Order", { order_remove: id });
       console.log(`[api] - Order deleted: ${id} `);
       return res.status(200).send("Dleted success");
     } catch (error) {

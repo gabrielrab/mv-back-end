@@ -25,7 +25,8 @@ module.exports = {
     try {
       const data = req.body;
       const user = await User.create({ ...data });
-      //Adicionar job de cadastro de usuário
+      //Job de cadastro de usuário
+      await Queue.add("RegistrationMail", { user });
       console.log(`[api] - Create user: ${user.name}`);
       return res.send({ user });
     } catch (error) {
@@ -83,7 +84,7 @@ module.exports = {
     //Adicionar job
     await Queue.add("RegistrationMail", { user });
 
-    req.io.emit("Like", { user: "Gabriel Rabelo" });
+    req.io.emit("Order", { user: "Gabriel Rabelo" });
 
     return res.send({ message: "parece que foi" });
   }
