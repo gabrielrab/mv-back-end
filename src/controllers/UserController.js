@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 
 import Queue from "../lib/Queue";
 
@@ -16,9 +17,14 @@ module.exports = {
       return res.status(200).send({ user });
     } catch (error) {
       console.log(error);
-
       return res.status(400).send({ error: "User not find" });
     }
+  },
+
+  async showByToken(req, res) {
+    const { token } = req.params;
+    const decoded = jwt.verify(token, "secret");
+    return res.status(200).send(decoded);
   },
 
   async store(req, res) {

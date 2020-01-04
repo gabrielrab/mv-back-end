@@ -68,9 +68,24 @@ UserSchema.methods = {
   },
 
   genereteToken() {
-    return jwt.sign({ id: this.id }, "secret", {
-      expiresIn: 604800
-    });
+    return jwt.sign(
+      {
+        id: this.id,
+        user: this.user,
+        name: this.name,
+        email: this.email,
+        cnpj: this.cnpj,
+        phone: this.phone,
+        address: this.address,
+        city: this.city,
+        uf: this.uf,
+        type: this.type
+      },
+      "secret",
+      {
+        expiresIn: 604800
+      }
+    );
   }
 };
 

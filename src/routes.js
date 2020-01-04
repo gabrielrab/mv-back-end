@@ -11,6 +11,7 @@ routes.get("/", (req, res) => {
 //User
 routes.get("/user", UserController.index);
 routes.get("/user/:id", UserController.show);
+routes.get("/user/token/:token", UserController.showByToken);
 routes.post("/user", UserController.store);
 routes.put("/user/:id", UserController.update);
 routes.delete("/user/:id", UserController.destroy);
