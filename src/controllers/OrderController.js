@@ -18,7 +18,7 @@ module.exports = {
   async show(req, res) {
     try {
       const { id } = req.params;
-      const order = await Order.findById(id);
+      const order = await Order.find({ code: id });
       console.log(`[api] - Show order: ${order.id}`);
       return res.status(200).send(order);
     } catch (error) {
